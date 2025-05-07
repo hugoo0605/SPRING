@@ -17,6 +17,5 @@ public class PedidoDTO {
     private String notas;
     private UUID sesionId;
     private double total;
-    private Long trabajadorId;
 
 }

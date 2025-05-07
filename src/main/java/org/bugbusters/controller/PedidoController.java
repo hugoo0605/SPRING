@@ -4,10 +4,8 @@ import org.bugbusters.dto.PedidoDTO;
 import org.bugbusters.dto.PedidoResponseDTO;
 import org.bugbusters.entity.Pedido;
 import org.bugbusters.entity.SesionMesa;
-import org.bugbusters.entity.Trabajador;
 import org.bugbusters.repository.PedidoRepository;
 import org.bugbusters.repository.SesionMesaRepository;
-import org.bugbusters.repository.TrabajadorRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,14 +18,11 @@ public class PedidoController {
 
     private final PedidoRepository pedidoRepository;
     private final SesionMesaRepository sesionMesaRepository;
-    private final TrabajadorRepository trabajadorRepository;
 
     public PedidoController(PedidoRepository pedidoRepository,
-                            SesionMesaRepository sesionMesaRepository,
-                            TrabajadorRepository trabajadorRepository) {
+                            SesionMesaRepository sesionMesaRepository) {
         this.pedidoRepository = pedidoRepository;
         this.sesionMesaRepository = sesionMesaRepository;
-        this.trabajadorRepository = trabajadorRepository;
     }
 
     // Crear un nuevo pedido
@@ -39,12 +34,6 @@ public class PedidoController {
             throw new RuntimeException("Sesion no encontrada");
         }
 
-        // Obtener el trabajador correspondiente
-        Optional<Trabajador> trabajadorOpt = trabajadorRepository.findById(pedidoDTO.getTrabajadorId());
-        if (trabajadorOpt.isEmpty()) {
-            throw new RuntimeException("Trabajador no encontrado");
-        }
-
         // Crear el objeto Pedido y asignar las relaciones
         Pedido pedido = new Pedido();
         pedido.setEstado(pedidoDTO.getEstado());
@@ -52,7 +41,6 @@ public class PedidoController {
         pedido.setNotas(pedidoDTO.getNotas());
         pedido.setTotal(pedidoDTO.getTotal());
         pedido.setSesionMesa(sesionMesaOpt.get());
-        pedido.setTrabajador(trabajadorOpt.get());
 
         // Guardar y devolver el pedido
         return pedidoRepository.save(pedido);

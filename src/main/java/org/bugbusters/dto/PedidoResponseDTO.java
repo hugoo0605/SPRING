@@ -24,7 +24,6 @@ public class PedidoResponseDTO {
         this.fechaCreacion = pedido.getFechaCreacion();
         this.notas = pedido.getNotas();
         this.total = pedido.getTotal();
-        this.trabajadorId = pedido.getTrabajador() != null ? pedido.getTrabajador().getId() : null;
         this.sesionId = pedido.getSesionMesa() != null ? pedido.getSesionMesa().getId() : null;
     }
 

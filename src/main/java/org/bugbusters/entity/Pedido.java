@@ -34,12 +34,6 @@ public class Pedido {
     @Setter
     @Getter
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "trabajador_id", nullable = false)
-    private Trabajador trabajador;
-
-    @Setter
-    @Getter
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sesion_id", nullable = false)
     private SesionMesa sesionMesa;
 
